@@ -1,0 +1,8 @@
+test.py
+pyvenv.cfg
+
+\lib
+\include
+\bin
+
+.DS_Store
