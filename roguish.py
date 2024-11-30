@@ -1,4 +1,5 @@
 from characters import *
+from rooms import *
 
 def test_string(string) ->bool:
     for char in string:
