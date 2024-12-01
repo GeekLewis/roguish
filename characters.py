@@ -50,6 +50,7 @@ class Hero(Character):
         super().__init__(name, hp, aim, defence)
         self.xp = 0
         self.level = 1
+        self.alive = True
 
 enemy_data = {
     "wolf":{
