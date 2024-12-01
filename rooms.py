@@ -19,6 +19,9 @@ class Room:
         self.south_target = -1
         self.east_target = -1
         self.west_target = -1
+        self.is_monster = False
+        self.is_loot = False
+        self.is_item = False
 
     def get_exits(self) -> str:
         self.exits=[]
