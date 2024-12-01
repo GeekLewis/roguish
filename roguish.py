@@ -45,6 +45,29 @@ def show_hero(player):
 
 def start_room() -> object:
     start=Room(name="Entryway", index=0, east=True, west=True)
+    return start
+
+def parser(current_room:object, user_action:str) -> object:
+    if user_action[0:2].lower() == 'go':
+        current_room = go(current_room, user_action[3:].strip())
+        return current_room
+    elif user_action.strip().lower() in directions:
+        current_room = go(current_room, user_action.strip())
+        return current_room
+    else:
+        print("I don't know what you mean.")
+        return current_room
+
+def game_loop(current_room:object, player:object) -> object:
+    while player.alive == True:
+        if  current_room.name[0:1].lower() in ['a', 'e', 'i', 'o', 'u']:
+            print(f'\nYou are in an {current_room.name}.')
+        else:
+            print(f'\nYou are in a {current_room.name}.')
+        
+        print(current_room.get_exits())
+        user_action:str = input('> ')
+        current_room = parser(current_room, user_action)
 
 
 def main():
@@ -52,6 +75,9 @@ def main():
     player = make_hero()
     print(f'Good luck, {player.name}')
     current_room = start_room()
+    player = game_loop(current_room, player)
+    if player.alive == False:
+        pass
 
 if __name__ == "__main__":
     main()
