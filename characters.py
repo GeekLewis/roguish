@@ -59,7 +59,7 @@ enemy_data = {
         "aim": 2,
         "defence": 8,
         "xp_val": 8,
-        "weapon": "bite",
+        "weapon": "vicious teeth",
         "dmg_bonus": 0
     },
     "zombie":{
@@ -68,7 +68,7 @@ enemy_data = {
         "aim": 0,
         "defence": 6,
         "xp_val": 8,
-        "weapon": "unarmed",
+        "weapon": "fists",
         "dmg_bonus": 0
     },
     "skeleton":{
@@ -77,7 +77,7 @@ enemy_data = {
         "aim": 2,
         "defence": 8,
         "xp_val": 10,
-        "weapon": "short_sword",
+        "weapon": "short sword",
         "dmg_bonus": 0
     },
     "bandit":{
@@ -95,7 +95,7 @@ enemy_data = {
         "aim": 8,
         "defence": 14,
         "xp_val": 35,
-        "weapon": "short_sword",
+        "weapon": "short sword",
         "dmg_bonus": 0
     },
     "barbarian":{
@@ -104,7 +104,7 @@ enemy_data = {
         "aim": 5,
         "defence": 9,
         "xp_val": 60,
-        "weapon": "long_sword",
+        "weapon": "long sword",
         "dmg_bonus": 4
     }
 }
