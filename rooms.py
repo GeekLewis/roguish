@@ -73,6 +73,9 @@ def go(current_room:object, direction:str) -> object:
     if not direction.lower() in directions:
         print(f"{direction} is not a valid direction.")
         return current_room
+    elif getattr(current_room, 'index') == 0 and direction == 'west':
+        print("That's the way out, and I'm afraid you can't leave.")
+        return current_room
     elif getattr(current_room, direction.lower()) == False:
         print(f"You can't go {direction.lower()}")
         return current_room
