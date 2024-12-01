@@ -43,10 +43,15 @@ def welcome():
 def show_hero(player):
     print(f'Hero:\nName: {player.name}')
 
+def start_room() -> object:
+    start=Room(name="Entryway", index=0, east=True, west=True)
+
+
 def main():
     welcome()
     player = make_hero()
-    print(player.name)
+    print(f'Good luck, {player.name}')
+    current_room = start_room()
 
 if __name__ == "__main__":
     main()
