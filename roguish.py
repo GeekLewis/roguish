@@ -21,7 +21,7 @@ def get_build() ->tuple:
         print("\n\n")
         print("Do you want to \n",
               "\n (F)loat like a butterfly\n (S)ting like a bee")
-        build_choice = input("?")
+        build_choice = input("> ")
         if build_choice.lower() == "f":
             return 8, 6, 12, 0
         elif build_choice.lower() == "s":
