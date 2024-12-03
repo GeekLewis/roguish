@@ -1,8 +1,9 @@
 test.py
 pyvenv.cfg
 
-\lib
-\include
 \bin
+\include
+\lib
+\Scripts\
 \__pycache__
 .DS_Store
