@@ -4,6 +4,7 @@ pyvenv.cfg
 \bin
 \include
 \lib
-\Scripts\
 \__pycache__
 .DS_Store
+
+Scripts
