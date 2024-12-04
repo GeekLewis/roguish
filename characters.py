@@ -3,14 +3,16 @@ from weapons import *
 
 class Character:
     def __init__(self, name: str, hp: int, aim: int, defence: int, 
-                 weapon:object = unarmed, dmg_bonus: int=0) -> None:
+                 weapon:str = 'fists', dmg_bonus: int=0) -> None:
         self.aim = aim 
         self.name = name 
         self.hp = hp
         self.max_hp = hp
         self.defence = defence
         self.dmg_bonus = dmg_bonus
-        self.weapon = unarmed
+        self.weapon = Weapon(name=weapon, dmg=weapons_data[weapon]['dmg'],
+                            bonus=weapons_data[weapon]['bonus'],
+                            drop=weapons_data[weapon]['drop'])
         self.potion = False
         self.potion_count = 0
 
