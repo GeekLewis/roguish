@@ -2,7 +2,7 @@ class Weapon:
     def __init__(self, name: str, dmg: int, bonus: int, drop: bool) -> None:
         self.name = name
         self.dmg = dmg
-        self.value = value
+        self.value = 0
 
 weapons_data = {
     'vicious teeth':{
