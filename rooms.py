@@ -1,10 +1,14 @@
 from random import choice
+
 from roomlib import adj as room_adj
 from roomlib import sub as room_sub
 
 class Room:
-    def __init__(self, name:str, index:int, north:bool = False, east:bool = False,
-                  south:bool = False, west:bool = False) -> None:
+    def __init__(
+                self, name:str, index:int, north:bool = False, 
+                east:bool = False, south:bool = False,
+                west:bool = False
+                ) -> None:
         self.name = name
         self.index = index
         self.north = north
@@ -27,7 +31,8 @@ class Room:
         self.exits=[]
         for dir in directions:
             if getattr(self, dir) == True: self.exits.append(dir)
-        if len(self.exits) == 1: return (f'You see an exit to the {self.exits[0]}.')
+        if len(self.exits) == 1: 
+            return (f'You see an exit to the {self.exits[0]}.')
         else:
             oxford = self.exits.pop()
             oxford = 'and '+oxford
@@ -47,7 +52,7 @@ mirror_directions = {
     'south': 'north',
     'east': 'west',
     'west': 'east'
-}
+    }
 
 def create_room(entry_index:int, entry_direction:str) -> None:
     room_name = name_room()
@@ -55,9 +60,11 @@ def create_room(entry_index:int, entry_direction:str) -> None:
     pos_exit_dirs = directions.copy()
     pos_exit_dirs.remove(entry_door)
     manditory_exit = choice(pos_exit_dirs)
-    new_room = Room(room_name, len(map), north=choice([True, False]), 
+    new_room = Room(
+                    room_name, len(map), north=choice([True, False]), 
                     south=choice([True, False]), east=choice([True, False]),
-                    west=choice([True, False]))
+                    west=choice([True, False])
+                    )
     setattr(new_room, entry_door, True)
     setattr(new_room, manditory_exit, True)
     setattr(new_room, entry_door+"_closed", False)
