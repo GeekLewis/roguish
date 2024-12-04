@@ -43,12 +43,16 @@ class Character:
         pass
 
 class Monster(Character):
-    def __init__(self, name: str, hp: int, aim: int, defence: int, xp_val: int, dmg_bonus: int=0) -> None:
+    def __init__(
+            self, name: str, hp: int, aim: int, defence: int, 
+            xp_val: int, dmg_bonus: int=0) -> None:
         super().__init__(name, hp, aim, defence)
         self.xp_val = xp_val
 
 class Hero(Character):
-    def __init__(self, name: str, hp: int, aim: int, defence: int, dmg_bonus: int=0) -> None:
+    def __init__(
+            self, name: str, hp: int, aim: int, defence: int, 
+            dmg_bonus: int=0) -> None:
         super().__init__(name, hp, aim, defence)
         self.xp = 0
         self.level = 1
