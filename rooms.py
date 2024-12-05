@@ -3,6 +3,7 @@ from random import choice
 from roomlib import adj as room_adj
 from roomlib import sub as room_sub
 
+
 class Room:
     def __init__(
                 self, name:str, index:int, north:bool = False, 
@@ -43,7 +44,8 @@ class Room:
                 if not 'and' in dir:self.e_str=self.e_str+', '
                 else:self.e_str = self.e_str+'.'
             return self.e_str
-        
+
+
 map = []
 directions = ['north', 'south', 'east', 'west']
 
@@ -53,6 +55,7 @@ mirror_directions = {
     'east': 'west',
     'west': 'east'
     }
+
 
 def create_room(entry_index:int, entry_direction:str) -> None:
     room_name = name_room()
@@ -72,9 +75,11 @@ def create_room(entry_index:int, entry_direction:str) -> None:
     map.append(new_room)
     return
 
+
 def name_room() -> str:
     room_name = (choice(room_adj))+' '+choice(room_sub)
     return room_name
+
 
 def go(current_room:object, direction:str) -> object:
     if not direction.lower() in directions:
