@@ -1,11 +1,13 @@
 from characters import *
 from rooms import *
 
-def test_string(string) ->bool:
+
+def test_string(string) -> bool:
     for char in string:
         if not char.isalpha():
             return False
     return True
+
 
 def get_name() -> str:
     name_valid = False
@@ -16,7 +18,8 @@ def get_name() -> str:
             print("\nUse letters only.\n\n")
     return h_name
 
-def get_build() ->tuple:
+
+def get_build() -> tuple:
     while True:
         print("\n\n")
         print("Do you want to \n",
@@ -29,23 +32,28 @@ def get_build() ->tuple:
         else:
             print("\nTry Again\n")
 
-def make_hero() ->object:
+
+def make_hero() -> object:
     h_name = get_name()
     build = get_build()
     player = Hero(h_name, build[0], build[1], build[2], build[3])
     return player
+
 
 def welcome():
     print('Welcome to the dungeon!\n',
           'How many rooms can you survive?\n',
           'Before you go further you must make your hero.\n')
 
+
 def show_hero(player):
     print(f'Hero:\nName: {player.name}')
+
 
 def start_room() -> object:
     start=Room(name="Entryway", index=0, east=True, west=True)
     return start
+
 
 def parser(current_room:object, user_action:str) -> object:
     if user_action[0:2].lower() == 'go':
@@ -57,6 +65,7 @@ def parser(current_room:object, user_action:str) -> object:
     else:
         print("I don't know what you mean.")
         return current_room
+
 
 def game_loop(current_room:object, player:object) -> object:
     while player.alive == True:
@@ -78,6 +87,7 @@ def main():
     player = game_loop(current_room, player)
     if player.alive == False:
         pass
+
 
 if __name__ == "__main__":
     main()
