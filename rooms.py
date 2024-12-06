@@ -73,7 +73,7 @@ def create_room(entry_index:int, entry_direction:str, player_level:int) -> None:
     setattr(new_room, manditory_exit, True)
     setattr(new_room, entry_door+"_closed", False)
     setattr(new_room, entry_door+"_target", entry_index)
-    if choice('yes', 'no') == 'yes':
+    if choice(['yes', 'no']) == 'yes':
         new_room.monster = random_monster(player_level)
     map.append(new_room)
     return
