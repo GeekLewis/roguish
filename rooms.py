@@ -25,9 +25,9 @@ class Room:
         self.south_target = -1
         self.east_target = -1
         self.west_target = -1
-        self.is_monster = False
-        self.is_loot = False
-        self.is_item = False
+        self.monster = None
+        self.loot = None
+        self.item = None
 
     def get_exits(self) -> str:
         self.exits=[]
@@ -73,9 +73,9 @@ def create_room(entry_index:int, entry_direction:str) -> None:
     setattr(new_room, manditory_exit, True)
     setattr(new_room, entry_door+"_closed", False)
     setattr(new_room, entry_door+"_target", entry_index)
-    map.append(new_room)
     if choice('yes', 'no') == 'yes':
-        pass
+        new_room.is_monster
+    map.append(new_room)
     return
 
 
