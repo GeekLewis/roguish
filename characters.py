@@ -1,6 +1,7 @@
 from random import randrange as rand
 from weapons import *
 
+
 class Character:
     def __init__(self, name: str, hp: int, aim: int, defence: int, 
                  weapon:str = 'fists', dmg_bonus: int=0) -> None:
@@ -42,6 +43,7 @@ class Character:
     def block(self):
         pass
 
+
 class Monster(Character):
     def __init__(
             self, name: str, hp: int, aim: int, defence: int, 
@@ -57,6 +59,7 @@ class Hero(Character):
         self.xp = 0
         self.level = 1
         self.alive = True
+
 
 enemy_data = {
     "wolf":{
@@ -115,8 +118,21 @@ enemy_data = {
     }
 }
 
+
+mob_difficulty = {
+    1:['wolf', 'zombie', 'skelton'],
+    2:['bandit', 'soldier'],
+    3:['barbarian']
+}
+
+
+def random_monster(player_level:int) -> object:
+    pass
+
+
 def main():
     pass
+
 
 if __name__ == "__main__":
     main()
