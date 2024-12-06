@@ -57,9 +57,9 @@ class Hero(Character):
             self, name: str, hp: int, aim: int, defence: int, 
             dmg_bonus: int=0) -> None:
         super().__init__(name, hp, aim, defence)
-        self.xp = 0
-        self.level = 1
-        self.alive = True
+        self.xp:int = 0
+        self.level:int = 1
+        self.alive:bool = True
 
 
 enemy_data = {
