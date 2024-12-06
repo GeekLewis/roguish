@@ -58,7 +58,7 @@ mirror_directions = {
     }
 
 
-def create_room(entry_index:int, entry_direction:str) -> None:
+def create_room(entry_index:int, entry_direction:str, player_level:int) -> None:
     room_name = name_room()
     entry_door = mirror_directions[entry_direction]
     pos_exit_dirs = directions.copy()
@@ -74,7 +74,7 @@ def create_room(entry_index:int, entry_direction:str) -> None:
     setattr(new_room, entry_door+"_closed", False)
     setattr(new_room, entry_door+"_target", entry_index)
     if choice('yes', 'no') == 'yes':
-        new_room.is_monster
+        new_room.monster = random_monster(player_level)
     map.append(new_room)
     return
 
@@ -84,7 +84,7 @@ def name_room() -> str:
     return room_name
 
 
-def go(current_room:object, direction:str) -> object:
+def go(current_room:object, direction:str, player_level:int) -> object:
     if not direction.lower() in directions:
         print(f"{direction} is not a valid direction.")
         return current_room
@@ -97,6 +97,6 @@ def go(current_room:object, direction:str) -> object:
     else:
         if getattr(current_room, direction+'_closed') == True:
             setattr(current_room, direction+'_target', len(map))
-            create_room(current_room.index, direction)
+            create_room(current_room.index, direction, player_level)
             setattr(current_room, direction+'_closed', False)
     return map[getattr(current_room, direction+'_target')]
