@@ -1,4 +1,5 @@
 from random import randrange as rand
+from random import choice
 from weapons import *
 
 
@@ -127,7 +128,14 @@ mob_difficulty = {
 
 
 def random_monster(player_level:int) -> object:
-    pass
+    mob_list = mob_difficulty[player_level]
+    picked_mob = choice(mob_list)
+    mob = Monster(name=picked_mob, hp=enemy_data[picked_mob]['hp'],
+                  aim=enemy_data[picked_mob]['aim'],
+                  defence=enemy_data[picked_mob]['defence'],
+                  xp_val=enemy_data[picked_mob]['xp_val'],
+                  dmg_bonus=enemy_data[picked_mob]['dmg_bonus'])
+    return mob
 
 
 def main():
