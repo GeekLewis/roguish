@@ -56,10 +56,10 @@ def start_room() -> object:
 
 def parser(current_room:object, player:object, user_action:str) -> object:
     if user_action[0:2].lower() == 'go':
-        current_room = go(current_room, user_action[3:].strip())
+        current_room = go(current_room, user_action[3:].strip(), player.level)
         return current_room, player
     elif user_action.strip().lower() in directions:
-        current_room = go(current_room, user_action.strip())
+        current_room = go(current_room, user_action.strip(), player.level)
         return current_room, player
     else:
         print("I don't know what you mean.")
