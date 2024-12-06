@@ -54,16 +54,16 @@ def start_room() -> object:
     return start
 
 
-def parser(current_room:object, user_action:str) -> object:
+def parser(current_room:object, player:object, user_action:str) -> object:
     if user_action[0:2].lower() == 'go':
         current_room = go(current_room, user_action[3:].strip())
-        return current_room
+        return current_room, player
     elif user_action.strip().lower() in directions:
         current_room = go(current_room, user_action.strip())
-        return current_room
+        return current_room, player
     else:
         print("I don't know what you mean.")
-        return current_room
+        return current_room, player
 
 
 def game_loop(current_room:object, player:object) -> object:
@@ -75,7 +75,7 @@ def game_loop(current_room:object, player:object) -> object:
         
         print(current_room.get_exits())
         user_action:str = input('> ')
-        current_room = parser(current_room, user_action)
+        current_room, player = parser(current_room, player, user_action)
 
 
 def main():
