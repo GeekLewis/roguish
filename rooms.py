@@ -2,6 +2,7 @@ from random import choice
 
 from roomlib import adj as room_adj
 from roomlib import sub as room_sub
+from characters import *
 
 
 class Room:
@@ -73,6 +74,8 @@ def create_room(entry_index:int, entry_direction:str) -> None:
     setattr(new_room, entry_door+"_closed", False)
     setattr(new_room, entry_door+"_target", entry_index)
     map.append(new_room)
+    if choice('yes', 'no') == 'yes':
+        pass
     return
 
 
