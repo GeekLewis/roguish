@@ -72,6 +72,8 @@ def game_loop(current_room:object, player:object) -> object:
             print(f'\nYou are in an {current_room.name}.')
         else:
             print(f'\nYou are in a {current_room.name}.')
+        if current_room.monster:
+            print(f'You see a {current_room.monster.name}')
         
         print(current_room.get_exits())
         user_action:str = input('> ')
