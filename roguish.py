@@ -54,6 +54,14 @@ def start_room() -> object:
     return start
 
 
+def help() -> None:
+    print('This game is played with text commands typed into the command prompt.')
+    print('To move you type the keyword GO followed by a direction (NORTH, SOUTH')
+    print('EAST, WEST). Some objects in a room can be picked up with the keyword')
+    print('TAKE, followed by the name of the object. If the object is a weapon')
+    print('it will automatically replace any current weapon you are weilding.')
+
+
 def parser(current_room:object, player:object, user_action:str) -> object:
     if user_action[0:2].lower() == 'go':
         current_room = go(current_room, user_action[3:].strip(), player.level)
