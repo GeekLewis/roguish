@@ -86,6 +86,10 @@ def game_loop(current_room:object, player:object) -> object:
         if current_room.monster:
             print(f'You see a {current_room.monster.name}, moving to attack you')
             player, current_room.monster = fight(player, current_room.monster)
+            if current_room.monster.alive == False:
+                print(f'The {current_room.monster.name} falls dead.')
+                player.collect_xp(current_room.monster.xp_val)
+                         
         print(current_room.get_exits())
         user_action:str = input('> ')
         current_room, player = parser(current_room, player, user_action)
