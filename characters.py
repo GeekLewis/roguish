@@ -27,6 +27,8 @@ class Character:
         if hit > self.defence:
             self.hp = max(self.hp - damage, 0)
             print(f"{attacker} hits {self.name} for {damage} damage\n\n")
+            if self.hp == 0:
+                self.alive = False
         else:
             print(f"{attacker} misses\n\n")
 
@@ -137,8 +139,20 @@ def random_monster(player_level:int) -> object:
                   dmg_bonus=enemy_data[picked_mob]['dmg_bonus'])
     return mob
 
+
 def fight(player:object, mob:object) -> tuple:
-    pass
+    while player.alive == True and mob.alive ==True:
+        print(f'\n\nThe {mob.name} moves to attack you!')
+        action = input('Will you FIGHT or RUN?\n> ')
+        if action.strip().lower() == 'run':
+            pass
+        elif action.strip.lower() == 'fight':
+            player.attack(mob)
+            mob.attack(player)
+        else:
+            print("I'm sorry you can't do that.")
+    return player, mob
+        
 
 def main():
     pass
