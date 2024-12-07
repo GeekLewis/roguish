@@ -147,7 +147,7 @@ enemy_data = {
 
 
 mob_difficulty = {
-    1:['wolf', 'zombie', 'skelton'],
+    1:['wolf', 'zombie', 'skeleton'],
     2:['bandit', 'soldier'],
     3:['barbarian']
 }
@@ -170,7 +170,7 @@ def fight(player:object, mob:object) -> tuple:
         action = input('Will you FIGHT or RUN?\n> ')
         if action.strip().lower() == 'run':
             pass
-        elif action.strip.lower() == 'fight':
+        elif action.strip().lower() == 'fight':
             player.attack(mob)
             mob.attack(player)
         else:
