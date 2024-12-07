@@ -12,9 +12,12 @@ def get_name() -> str:
     name_valid = False
     while name_valid == False:
         h_name: str = input('Name your hero: ')
-        name_valid = test_string(h_name)
-        if name_valid == False:
-            print("\nUse letters only.\n\n")
+        if len(h_name) > 16:
+            print("\nLet's keep it under 16 letters, shall we?\n\n")
+        else:
+            name_valid = test_string(h_name)
+            if name_valid == False:
+                print("\nUse letters only.\n\n")
     return h_name
 
 
