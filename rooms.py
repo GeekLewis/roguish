@@ -6,6 +6,26 @@ from characters import *
 
 
 class Room:
+    """
+    A class representing a room in the dungeon.
+
+    Attributes:
+        name (str): Name of the room
+        index (int): index number for refencing the rooms locatoin in
+                    the map list
+        north, south, east, west (bool): True indicated an exit
+        _closed (bool): tells if player has passed thru that exit
+        _target (int): set to the index number of the room that exit 
+                    connects to. Value of -1 by default indicates that 
+                    exit has not been assigned a room yet
+        monster (object): if a room contains a monster that object will 
+                    be stored here, but evaluates to False if empty.
+        loot (object): if a room contains loot that object will be 
+                    stored here, but evaluate False if empty
+        item (object): if a room contains an item the player can pick up 
+                    that object is stored here, but evaluates to False 
+                    if empty 
+    """
     def __init__(
                 self, name:str, index:int, north:bool = False, 
                 east:bool = False, south:bool = False,
@@ -30,6 +50,9 @@ class Room:
         self.item = None
 
     def get_exits(self) -> str:
+        """
+        Method to check and list the possible exit directions from this room
+        """
         self.exits=[]
         for dir in directions:
             if getattr(self, dir) == True: self.exits.append(dir)
