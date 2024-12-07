@@ -9,6 +9,8 @@ def test_string(string) -> bool:
 
 
 def get_name() -> str:
+    '''Gets name from user and validates that it is a valid string,
+    which is less than 16 characters'''
     name_valid = False
     while name_valid == False:
         h_name: str = input('Name your hero: ')
@@ -22,6 +24,7 @@ def get_name() -> str:
 
 
 def get_build() -> tuple:
+    '''Retuns tuple with int values for hp, aim, defense, dmg_bonus'''
     while True:
         print("\n\n")
         print("Do you want to \n",
@@ -38,7 +41,8 @@ def get_build() -> tuple:
 def make_hero() -> object:
     h_name = get_name()
     build = get_build()
-    player = Hero(h_name, build[0], build[1], build[2], build[3])
+    player = Hero(name=h_name, hp=build[0], aim=build[1], defence=build[2],
+                  dmg_bonus=build[3])
     return player
 
 
@@ -58,14 +62,14 @@ def start_room() -> object:
 
 
 def help() -> None:
-    print('This game is played with text commands typed into the command prompt.')
-    print('To move you type the keyword GO followed by a direction (NORTH, SOUTH')
-    print('EAST, WEST). Some objects in a room can be picked up with the keyword')
-    print('TAKE, followed by the name of the object. If the object is a weapon')
-    print('it will automatically replace any current weapon you are weilding.')
+    print('This game is played with text commands typed into the command')
+    print('prompt. To move you type the keyword GO followed by a direction')
+    print('NORTH, SOUTH,EAST, WEST). Some objects in a room can be picked up')
+    print('with the keyword TAKE, followed by the name of the object. If the')
+    print('object is a weapon it will automatically replace any current')
+    print('weapon you are weilding.')
 
-
-def parser(current_room:object, player:object, user_action:str) -> object:
+def parser(current_room:object, player:object, user_action:str) -> tuple:
     if user_action[0:2].lower() == 'go':
         current_room = go(current_room, user_action[3:].strip(), player.level)
         return current_room, player
