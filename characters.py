@@ -62,6 +62,30 @@ class Hero(Character):
         self.level:int = 1
         self.potion = False
         self.potion_count = 0
+        self.xp_level:dict = {
+            1:49,
+            2:99,
+            3:199,
+            4:399,
+            5:799
+        }
+
+    def _level_up(self):
+        while self.xp > self.xp_level[self.level]:
+            print('\nYou gained a level!')
+            self.level += 1
+            # rewards for new level here
+            self.hp += 8
+            print(f'You gain 8 HP! \({self.hp} HP Total\)')
+            self.aim += 4
+            print('Your accuracy increased!')
+            self.defence += 4
+            print('Your defense increased!')
+
+    def collect_xp(self, xp_val:int):
+        self.xp += xp_val
+        print(f'You gain {xp_val} experience. \({self.xp} Total.\)')
+        if self.xp > self.xp_level[self.level]: self._level_up()
 
 
 enemy_data = {
