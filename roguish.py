@@ -84,8 +84,8 @@ def game_loop(current_room:object, player:object) -> object:
         else:
             print(f'\nYou are in a {current_room.name}.')
         if current_room.monster:
-            print(f'You see a {current_room.monster.name}')
-        
+            print(f'You see a {current_room.monster.name}, moving to attack you')
+            player, current_room.monster = fight(player, current_room.monster)
         print(current_room.get_exits())
         user_action:str = input('> ')
         current_room, player = parser(current_room, player, user_action)

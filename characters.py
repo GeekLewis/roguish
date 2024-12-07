@@ -137,6 +137,8 @@ def random_monster(player_level:int) -> object:
                   dmg_bonus=enemy_data[picked_mob]['dmg_bonus'])
     return mob
 
+def fight(player:object, mob:object) -> tuple:
+    pass
 
 def main():
     pass
