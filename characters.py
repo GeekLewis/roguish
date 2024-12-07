@@ -15,7 +15,7 @@ class Character:
         self.weapon = Weapon(name=weapon, dmg=weapons_data[weapon]['dmg'],
                             bonus=weapons_data[weapon]['bonus'],
                             drop=weapons_data[weapon]['drop'])
-
+        self.alive:bool = True
 
     def attack(self, target):
         print(f"{self.name} attacks {target.name}\n")
@@ -58,7 +58,6 @@ class Hero(Character):
         super().__init__(name, hp, aim, defence)
         self.xp:int = 0
         self.level:int = 1
-        self.alive:bool = True
         self.potion = False
         self.potion_count = 0
 
