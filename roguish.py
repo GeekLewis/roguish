@@ -100,7 +100,7 @@ def game_loop(current_room:object, player:object) -> object:
         print(current_room.get_exits())
         user_action:str = input('> ')
         current_room, player = parser(current_room, player, user_action)
-
+    return player
 
 def main():
     welcome()
@@ -109,7 +109,7 @@ def main():
     current_room = start_room()
     player = game_loop(current_room, player)
     if player.alive == False:
-        pass
+        print('You dead')
 
 
 if __name__ == "__main__":
