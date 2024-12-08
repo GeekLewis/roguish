@@ -48,8 +48,8 @@ class Character:
 
 class Monster(Character):
     def __init__(
-            self, name: str, hp: int, aim: int, defence: int, 
-            xp_val: int, dmg_bonus: int=0) -> None:
+            self, name: str, hp: int, aim: int, defence: int,
+            xp_val: int, weapon:str = 'fists', dmg_bonus: int=0) -> None:
         super().__init__(name, hp, aim, defence)
         self.xp_val = xp_val
 
