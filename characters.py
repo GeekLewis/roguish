@@ -160,7 +160,8 @@ def random_monster(player_level:int) -> object:
                   aim=enemy_data[picked_mob]['aim'],
                   defence=enemy_data[picked_mob]['defence'],
                   xp_val=enemy_data[picked_mob]['xp_val'],
-                  dmg_bonus=enemy_data[picked_mob]['dmg_bonus'])
+                  dmg_bonus=enemy_data[picked_mob]['dmg_bonus'],
+                  weapon=enemy_data[picked_mob]['weapon'])
     return mob
 
 
