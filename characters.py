@@ -19,8 +19,8 @@ class Character:
 
     def attack(self, target):
         print(f"{self.name} attacks {target.name}\n")
-        hit = rand(self.aim)+1
-        damage = (rand(self.weapon.dmg)+1)+self.dmg_bonus
+        hit = rand(1, 21)+self.aim
+        damage = (rand(1, self.weapon.dmg))+self.dmg_bonus
         target.hit(self.name, hit, damage) 
 
     def hit(self, attacker, hit, damage):
