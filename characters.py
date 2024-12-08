@@ -76,7 +76,7 @@ class Hero(Character):
             self.level += 1
             # rewards for new level here
             self.hp += 8
-            print(f'You gain 8 HP! \({self.hp} HP Total\)')
+            print(f'You gain 8 HP! ({self.hp} HP Total)')
             self.aim += 4
             print('Your accuracy increased!')
             self.defence += 4
@@ -84,7 +84,7 @@ class Hero(Character):
 
     def collect_xp(self, xp_val:int):
         self.xp += xp_val
-        print(f'You gain {xp_val} experience. \({self.xp} Total.\)')
+        print(f'You gain {xp_val} experience. ({self.xp} Total.)')
         if self.xp > self.xp_level[self.level]: self._level_up()
 
 
