@@ -166,7 +166,7 @@ def random_monster(player_level:int) -> object:
 
 def fight(player:object, mob:object) -> tuple:
     while player.alive == True and mob.alive ==True:
-        print(f'\n\nThe {mob.name} moves to attack you!')
+        print(f'\nThe {mob.name} attacks you with {mob.weapon.name}!')
         action = input('Will you FIGHT or RUN?\n> ')
         if action.strip().lower() == 'run':
             pass
