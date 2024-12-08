@@ -39,6 +39,8 @@ def get_build() -> tuple:
 
 
 def make_hero() -> object:
+    '''Calls the h_name and build functions then uses that data to
+    instantiate the player Hero class which is returned as an object'''
     h_name = get_name()
     build = get_build()
     player = Hero(name=h_name, hp=build[0], aim=build[1], defence=build[2],
@@ -57,6 +59,7 @@ def show_hero(player):
 
 
 def start_room() -> object:
+    '''Creates the only defined room in the game as our starting room'''
     start=Room(name="Entryway", index=0, east=True, west=True)
     return start
 
