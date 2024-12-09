@@ -18,7 +18,7 @@ class Character:
         self.alive:bool = True
 
     def attack(self, target):
-        print(f"{self.name} attacks {target.name}\n")
+        print(f"\n{self.name} attacks {target.name} with {self.weapon.name}")
         hit = rand(1, 21)+self.aim
         damage = (rand(1, self.weapon.dmg))+self.dmg_bonus
         target.hit(self.name, hit, damage) 
@@ -26,11 +26,12 @@ class Character:
     def hit(self, attacker, hit, damage):
         if hit > self.defence:
             self.hp = max(self.hp - damage, 0)
-            print(f"{attacker} hits {self.name} for {damage} damage\n\n")
+            print(f'{attacker} hits {self.name} for {damage} damage',
+                  f' ({self.hp}/{self.max_hp})')
             if self.hp == 0:
                 self.alive = False
         else:
-            print(f"{attacker} misses\n\n")
+            print(f"{attacker} misses\n")
 
     def check_health(self):
         print (f"{self.name} has {self.hp}/{self.max_hp} health")
@@ -167,7 +168,7 @@ def random_monster(player_level:int) -> object:
 
 def fight(player:object, mob:object) -> tuple:
     while player.alive == True and mob.alive ==True:
-        print(f'\nThe {mob.name} attacks you with {mob.weapon.name}!')
+        print(f'\nThe {mob.name} is attacking you!')
         action = input('Will you FIGHT or RUN?\n> ')
         if action.strip().lower() == 'run':
             pass
