@@ -2,7 +2,7 @@ adj=[
     'spooky', 'dark', 'bright', 'humid', 'dank', 'creepy', 'stinky', 
     'colorful', 'bland', 'cold', 'hot', 'lukewarm', 'drafty', 'long', 'small', 
     'short', 'cavernous', 'huge', 'large', 'blue', 'red', 'yellow', 'green', 
-    'wide', 'open', 'icey'
+    'wide', 'open', 'icey', 'oddly shaped', 'prismatically colored'
     ]
 
 sub=[
@@ -11,5 +11,6 @@ sub=[
     'classroom', 'nursery', 'bedroom', 'crypt', 'library', 'altar room', 
     'throne room', 'open floor plan office', 'kitchen', 'workshop', 'pantry', 
     'walk-in freezer', 'dining hall', 'map room', 'networking closet', 
-    'coffee shop', 'laundry room', 'concert hall', 'speakeasy'
+    'coffee shop', 'laundry room', 'concert hall', 'speakeasy',
+    'torture chamber'
     ]
