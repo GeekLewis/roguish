@@ -1,4 +1,34 @@
 from rooms import *
+from rich.console import Console
+from rich.layout import Layout
+from rich.align import Align
+import os
+
+
+# This will initialize the screen layout for the Game
+console = Console()
+term_height = os.get_terminal_size().lines
+layout_height = term_height-1
+
+layout = Layout()
+layout.split(
+    Layout(name="title_bar",size=2),
+    Layout(name="header", size=3),
+    Layout(name="body"),
+)
+layout["header"].split_row(
+    Layout(name='room_name', size=54),
+    Layout(name="header_buffer"),
+    Layout(name="score_box", size=20)
+)
+layout["body"].split_row(
+    Layout(name="main_window"),
+    Layout(name="margin", size=2),
+    Layout(name="char_window", size=24)
+)
+layout["title_bar"].update(Align("Roguish", align="center"))
+layout["header_buffer"].update(" ")
+layout["margin"].update(" ")
 
 
 def test_string(string) -> bool:
