@@ -100,7 +100,7 @@ def get_build() -> tuple:
             print("\nTry Again\n")
 
 
-def make_hero() -> object:
+def make_hero() -> Hero:
     '''Calls the h_name and build functions then uses that data to
     instantiate the player Hero class which is returned as an object'''
     h_name = get_name()
@@ -120,7 +120,7 @@ def show_hero(player):
     print(f'Hero:\nName: {player.name}')
 
 
-def start_room() -> object:
+def start_room() -> Room:
     '''Creates the only defined room in the game as our starting room'''
     start=Room(name="Entryway", index=0, east=True, west=True)
     return start
@@ -134,7 +134,7 @@ def help() -> None:
     print('object is a weapon it will automatically replace any current')
     print('weapon you are weilding.')
 
-def parser(current_room:object, player:object, user_action:str) -> tuple:
+def parser(current_room:Room, player:Hero, user_action:str) -> tuple:
     if user_action[0:2].lower() == 'go':
         current_room = go(current_room, user_action[3:].strip(), player.level)
         return current_room, player
@@ -146,7 +146,7 @@ def parser(current_room:object, player:object, user_action:str) -> tuple:
         return current_room, player
 
 
-def game_loop(current_room:object, player:object) -> object:
+def game_loop(current_room:Room, player:Hero) -> object:
     while player.alive == True:
         if  current_room.name[0:1].lower() in ['a', 'e', 'i', 'o', 'u']:
             print(f'\nYou are in an {current_room.name}.')
