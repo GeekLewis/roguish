@@ -13,11 +13,11 @@ layout_height = term_height-1
 layout = Layout()
 layout.split(
     Layout(name="title_bar",size=2),
-    Layout(name="header", size=3),
+    Layout(name="status_bar", size=3),
     Layout(name="body"),
 )
-layout["header"].split_row(
-    Layout(name='room_name', size=54),
+layout["status bar"].split_row(
+    Layout(name="room_name", size=54),
     Layout(name="header_buffer"),
     Layout(name="score_box", size=20)
 )
@@ -31,11 +31,22 @@ layout["header_buffer"].update(" ")
 layout["margin"].update(" ")
 
 
+def update_status_bar(room_name:str, player_score:int) -> None:
+    """Updates status bar 
+    Args:
+        room_name (str): Name of current room.
+        player_score (int): Score from player
+    """
+    layout["room_name"].update(f"[blue]{room_name}[/bold]")
+    layout["player_score"].update(f"[green]Score:[/green] 
+    [bright green]{player_score: >5}[/bright green] ")
+
 def test_string(string) -> bool:
     for char in string:
         if not char.isalpha():
             return False
     return True
+
 
 
 def get_name() -> str:
