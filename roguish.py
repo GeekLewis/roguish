@@ -16,7 +16,7 @@ layout.split(
     Layout(name="status_bar", size=3),
     Layout(name="body"),
 )
-layout["status bar"].split_row(
+layout["status_bar"].split_row(
     Layout(name="room_name", size=54),
     Layout(name="header_buffer"),
     Layout(name="score_box", size=20)
@@ -38,8 +38,11 @@ def update_status_bar(room_name:str, player_score:int) -> None:
         player_score (int): Score from player
     """
     layout["room_name"].update(f"[blue]{room_name}[/bold]")
-    layout["player_score"].update(f"[green]Score:[/green] 
-    [bright green]{player_score: >5}[/bright green] ")
+    layout["player_score"].update(f"[green]Score:[/green] ", 
+                "[bright green]{player_score: >5}[/bright green] ")
+
+def update_main_windows(text_block):
+    pass
 
 def test_string(string) -> bool:
     for char in string:
