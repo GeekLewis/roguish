@@ -41,8 +41,26 @@ def update_status_bar(room_name:str, player_score:int) -> None:
     layout["player_score"].update(f"[green]Score:[/green] ", 
                 "[bright green]{player_score: >5}[/bright green] ")
 
-def update_main_windows(text_block):
-    pass
+
+def update_main_windows(text_block) -> None:
+    layout["main_window"].update(text_block)
+
+
+def update_char_window(player:Hero, mob:Monster=None) -> None:
+    c_win_blob:str=(f"[magenta]Name:[/magenta] ",
+                        "[bright magenta{player.name}[/bright magenta]")    
+    c_win_blob.append(f"     Level: {player.level}")
+    c_win_blob.append(f"Experiance: {player.xp}")
+    c_win_blob.append(f"    Health: {player.hp}/{player.max_hp}")
+    c_win_blob.append(f"    Weapon: {player.weapon}")
+    c_win_blob.append(f"   Potions: {player.potion_count}")
+    if mob:
+        c_win_blob.append("\n\n")
+        c_win_blob.append(f"[orange]{mob.name}[/orange]")
+        c_win_blob.append(f"    Health: {mob.hp}/{mob.max_hp}")
+        c_win_blob.append(f"    Weapon: {mob.weapon}")
+    layout["char_window"].update(c_win_blob)
+    
 
 def test_string(string) -> bool:
     for char in string:
