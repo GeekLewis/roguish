@@ -1,4 +1,16 @@
 class Weapon:
+    """
+    A simple class to represent weapons or any object that deals damage,
+    no methods.
+
+    Attributes:
+        name (str): Descriptive name of object 
+        dmg (int): This number determines the top of the randrange used 
+                    for deteriming damage, think d6 or d10 from TTRPGs
+        bonus (int): value added to the damage after the random roll
+        drop (bool): if true when the monster dies this weapon drops
+                    to the room, and can be picked up by the player
+    """
     def __init__(self, name: str, dmg: int, bonus: int, drop: bool) -> None:
         self.name = name
         self.dmg = dmg
