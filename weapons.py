@@ -1,6 +1,10 @@
+from dataclasses import dataclass, field
+
+
+@dataclass
 class Weapon:
     """
-    A simple class to represent weapons or any object that deals damage,
+    A dataclass to represent weapons or any object that deals damage,
     no methods.
 
     Attributes:
@@ -11,10 +15,11 @@ class Weapon:
         drop (bool): if true when the monster dies this weapon drops
                     to the room, and can be picked up by the player
     """
-    def __init__(self, name: str, dmg: int, bonus: int, drop: bool) -> None:
-        self.name = name
-        self.dmg = dmg
-        self.value = 0
+    name: str = field(doc="Descriptive name of weapon")
+    dmg: int = field(doc="Defines top of random damage range")
+    bonus: int = field(doc="Additional damage on top of random range.")
+    drop: bool = field(doc="If True weapon drops after loss, can be picked up")    
+
 
 weapons_data = {
     'vicious teeth':{
