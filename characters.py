@@ -4,12 +4,30 @@ from weapons import *
 
 
 class Character:
+    """
+    Base class for all in game creatures PC or NPC
+
+    Attributes:
+        name (str): name of the character/creature
+        hp (int): health points, at initialization it is used to also 
+                set max_hp attr. hp is used to track damage.
+        aim (int): a value that is added to the randrange of 1-20 used
+                to beat opponents defence score
+        defence (int): value that is a comnination of armor or
+                manuverability, this number must be beat to score a hit
+        weapon (object): place to store Weapon class object, if none is
+                provided it will default to 'fists' 
+        dmg_bonus (int): additional damage bomus granted by the 
+                character/creature beyond any weapon damage
+        alive (bool): tells if the character/creature is alive, set to
+                True at creation
+    """
     def __init__(self, name: str, hp: int, aim: int, defence: int, 
                  weapon:str = 'fists', dmg_bonus: int=0) -> None:
-        self.aim = aim 
         self.name = name 
         self.hp = hp
         self.max_hp = hp
+        self.aim = aim
         self.defence = defence
         self.dmg_bonus = dmg_bonus
         self.weapon = Weapon(name=weapon, dmg=weapons_data[weapon]['dmg'],
@@ -48,6 +66,13 @@ class Character:
 
 
 class Monster(Character):
+    """
+    Subclass of Character for NPC monsters
+
+    Attributes:
+        xp_val (int): experiance value given to Hero for defeating the 
+                    monster
+    """
     def __init__(
             self, name: str, hp: int, aim: int, defence: int,
             xp_val: int, weapon:str = 'fists', dmg_bonus: int=0) -> None:
@@ -55,6 +80,20 @@ class Monster(Character):
         self.xp_val = xp_val
 
 class Hero(Character):
+    """
+    Subclass of Character for the player
+
+    Attributes:
+        xp (int): Players experience gaind thru surviving the dungeon
+        level (int): Indicates the player's current level, used to 
+                    determine which monsters are allowed to spawn and
+                    may indicated other benefits from advancement
+        potion (bool): Simple bool to check if player has, and thus can 
+                    use healing potions
+        potion_count (int): tracks how many potions the player has
+        xp_level (dict): a built in dictionary to determine at what
+                    experience count does the player level up
+    """
     def __init__(
             self, name: str, hp: int, aim: int, defence: int, 
             dmg_bonus: int=0) -> None:
