@@ -107,7 +107,7 @@ def name_room() -> str:
     return room_name
 
 
-def go(current_room:object, direction:str, player_level:int) -> object:
+def go(current_room:Room, direction:str, player_level:int) -> Room:
     if not direction.lower() in directions:
         print(f"{direction} is not a valid direction.")
         return current_room
