@@ -84,7 +84,7 @@ class Hero(Character):
     Subclass of Character for the player
 
     Attributes:
-        xp (int): Players experience gaind thru surviving the dungeon
+        xp (int): Players experience gained thru surviving the dungeon
         level (int): Indicates the player's current level, used to 
                     determine which monsters are allowed to spawn and
                     may indicated other benefits from advancement
