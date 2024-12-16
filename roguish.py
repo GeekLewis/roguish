@@ -3,6 +3,34 @@ from rich.console import Console
 from rich.layout import Layout
 from rich.align import Align
 import os
+import time
+
+
+class Windowpane:
+    """This class is built for managing text for rich layout areas"""
+    def __init__(self, layout_label:str, layout_pane_height:int):
+        self.label:str = layout_label
+        self.pane_height = layout_pane_height
+        self.text_blob:str = ""
+        self.cache:list = []
+
+    def clear_cache(self):
+        self.cache = []
+
+    def add(self, new_text:str):
+        self.cache.append(new_text)
+        if len(self.cache) == self.pane_height:
+            del self.cache [0]
+
+    def cache_out(self):
+        self.text_blob=""
+        for i in self.cache:
+            self.text_blob=self.text_blob+i+"\n"
+
+    def print_cache(self):
+        self.cache_out()
+        layout[self.label].update(self.text_blob)
+        console.print(layout, height=layout_height)
 
 
 # This will initialize the screen layout for the Game
@@ -33,6 +61,7 @@ layout["room_name"].update(" ")
 layout["score_box"].update(" ")
 layout["char_window"].update(" ")
 
+main_win = Windowpane("main_window", layout_height-5)
 
 console.print(layout, height=layout_height)
 
@@ -53,18 +82,18 @@ def update_main_window(text_block) -> None:
 
 
 def update_char_window(player:Hero, mob:Monster=None) -> None:
-    c_win_blob:str=(f"[magenta]Name:[/magenta] ",
-                        "[bright magenta{player.name}[/bright magenta]")    
-    c_win_blob.append(f"     Level: {player.level}")
-    c_win_blob.append(f"Experiance: {player.xp}")
-    c_win_blob.append(f"    Health: {player.hp}/{player.max_hp}")
-    c_win_blob.append(f"    Weapon: {player.weapon}")
-    c_win_blob.append(f"   Potions: {player.potion_count}")
+    c_win_blob:str=(f"[magenta]Name:[/magenta] "+
+        f"[bright magenta]{player.name}[/bright magenta]\n"+
+        f"     Level: {player.level}\n"+
+        f"Experiance: {player.xp}\n"+
+        f"    Health: {player.hp}/{player.max_hp}\n"+
+        f"    Weapon: {player.weapon.name}\n"+
+        f"   Potions: {player.potion_count}\n")
     if mob:
-        c_win_blob.append("\n\n")
-        c_win_blob.append(f"[orange]{mob.name}[/orange]")
-        c_win_blob.append(f"    Health: {mob.hp}/{mob.max_hp}")
-        c_win_blob.append(f"    Weapon: {mob.weapon}")
+        c_win_blob = c_win_blob +("\n\n"+
+            f"[orange]{mob.name}[/orange]\n"+
+            f"    Health: {mob.hp}/{mob.max_hp}\n"+
+            f"    Weapon: {mob.weapon}")
     layout["char_window"].update(c_win_blob)
     
 
@@ -159,11 +188,12 @@ def parser(current_room:Room, player:Hero, user_action:str) -> tuple:
 def game_loop(current_room:Room, player:Hero) -> object:
     while player.alive == True:
         if  current_room.name[0:1].lower() in ['a', 'e', 'i', 'o', 'u']:
-            print(f'\nYou are in an {current_room.name}.')
+            main_blob=(f'\nYou are in an {current_room.name}.')
         else:
-            print(f'\nYou are in a {current_room.name}.')
+            main_blob=(f'\nYou are in a {current_room.name}.')
         if current_room.monster:
-            print(f'You see a {current_room.monster.name}, moving to attack you')
+            main_blob=main_blob+(f'You see a {current_room.monster.name},"+
+                                 " moving to attack you')
             player, current_room.monster = fight(player, current_room.monster)
             if current_room.monster.alive == False:
                 print(f'The {current_room.monster.name} falls dead.')
@@ -177,9 +207,11 @@ def game_loop(current_room:Room, player:Hero) -> object:
 def main():
     welcome()
     player = make_hero()
-    print(f'Good luck, {player.name}')
+    update_char_window(player=player)
+    update_main_window(f'[gold3]Good luck, [/gold3][green1]{player.name}')
+    time.sleep(4)
     current_room = start_room()
-    player = game_loop(current_room, player)
+    game_loop(current_room, player)
     if player.alive == False:
         print('You dead')
 
