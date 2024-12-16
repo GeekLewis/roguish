@@ -15,10 +15,10 @@ class Weapon:
         drop (bool): if true when the monster dies this weapon drops
                     to the room, and can be picked up by the player
     """
-    name: str = field(doc="Descriptive name of weapon")
-    dmg: int = field(doc="Defines top of random damage range")
-    bonus: int = field(doc="Additional damage on top of random range.")
-    drop: bool = field(doc="If True weapon drops after loss, can be picked up")    
+    name: str
+    dmg: int
+    bonus: int
+    drop: bool
 
 
 weapons_data = {
