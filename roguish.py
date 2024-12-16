@@ -26,10 +26,15 @@ layout["body"].split_row(
     Layout(name="margin", size=2),
     Layout(name="char_window", size=24)
 )
-layout["title_bar"].update(Align("Roguish", align="center"))
+layout["title_bar"].update(Align("[green1]Roguish", align="center"))
 layout["header_buffer"].update(" ")
 layout["margin"].update(" ")
+layout["room_name"].update(" ")
+layout["score_box"].update(" ")
+layout["char_window"].update(" ")
 
+
+console.print(layout, height=layout_height)
 
 def update_status_bar(room_name:str, player_score:int) -> None:
     """Updates status bar 
@@ -42,8 +47,9 @@ def update_status_bar(room_name:str, player_score:int) -> None:
                 "[bright green]{player_score: >5}[/bright green] ")
 
 
-def update_main_windows(text_block) -> None:
+def update_main_window(text_block) -> None:
     layout["main_window"].update(text_block)
+    console.print(layout, height=layout_height)
 
 
 def update_char_window(player:Hero, mob:Monster=None) -> None:
@@ -77,20 +83,23 @@ def get_name() -> str:
     while name_valid == False:
         h_name: str = input('Name your hero: ')
         if len(h_name) > 16:
-            print("\nLet's keep it under 16 letters, shall we?\n\n")
+            update_main_window("\nLet's keep it under 16 letters, shall we?\n")
         else:
             name_valid = test_string(h_name)
             if name_valid == False:
-                print("\nUse letters only.\n\n")
+                update_main_window("\nPlease, use letters only.\n\n")
     return h_name
 
 
-def get_build() -> tuple:
+def get_build(h_name:str) -> tuple:
     '''Retuns tuple with int values for hp, aim, defense, dmg_bonus'''
     while True:
-        print("\n\n")
-        print("Do you want to \n",
-              "\n (F)loat like a butterfly\n (S)ting like a bee")
+        update_main_window(f"[gold3]Very well, [green1]{h_name}[/green1]. \n"+
+                           "Do you want to...\n\n ([bright_cyan]F[/bright_cyan])"+
+                           "loat like a butterfly [bright_magenta](High defense)"+
+                           "[/bright_magenta]\n ([bright_cyan]S[/bright_cyan])"+
+                           "ting like a bee [bright_magenta](High Damage)"+
+                           "[/bright_magenta]")
         build_choice = input("> ")
         if build_choice.lower() == "f":
             return 8, 6, 12, 0
@@ -104,16 +113,17 @@ def make_hero() -> Hero:
     '''Calls the h_name and build functions then uses that data to
     instantiate the player Hero class which is returned as an object'''
     h_name = get_name()
-    build = get_build()
+    build = get_build(h_name)
     player = Hero(name=h_name, hp=build[0], aim=build[1], defence=build[2],
                   dmg_bonus=build[3])
     return player
 
 
 def welcome():
-    print('Welcome to the dungeon!\n',
-          'How many rooms can you survive?\n',
-          'Before you go further you must make your hero.\n')
+    welcome_text =('[gold3]Welcome to the[/gold3] [red1]dungeon[/red1]!\n'+
+    '[gold3]How many rooms can you survive?[/gold3]\n'+
+    'Before you go further you must make your hero.\n')
+    update_main_window(welcome_text)
 
 
 def show_hero(player):
