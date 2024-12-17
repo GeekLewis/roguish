@@ -77,6 +77,7 @@ def update_status_bar(room_name:str, player_score:int) -> None:
     layout["room_name"].update(f"[blue]{room_name}[/bold]")
     layout["player_score"].update(f"[green]Score:[/green] ", 
                 "[bright green]{player_score: >5}[/bright green] ")
+    console.print(layout, height=layout_height)
 
 
 # def update_main_window(text_block) -> None:
@@ -214,6 +215,7 @@ def go(current_room:Room, direction:str, player_level:int) -> Room:
 def game_loop(current_room:Room, player:Hero) -> object:
     while player.alive == True:
         layout["room_name"].update(current_room.name)
+        update_status_bar(current_room, player.)
         if  current_room.name[0:1].lower() in ['a', 'e', 'i', 'o', 'u']:
             main_win.add(f'\nYou are in an {current_room.name}.')
         else:
@@ -239,7 +241,7 @@ def main():
     main_win.print_cache()
     main_win.add(f'[gold3]Good luck, [/gold3][green1]{player.name}')
     main_win.print_cache()
-    time.sleep(4)
+    time.sleep(2)
     current_room = start_room()
     game_loop(current_room, player)
     if player.alive == False:
