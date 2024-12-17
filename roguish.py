@@ -16,18 +16,18 @@ class Windowpane:
 
     def clear_cache(self):
         self.cache = []
-
+        self.print_cache()
+        
     def add(self, new_text:str):
         self.cache.append(new_text)
         if len(self.cache) == self.pane_height:
             del self.cache [0]
+        self.print_cache()
 
     def cache_out(self):
-        print(self.text_blob)
         self.text_blob=""
         for i in self.cache:
             self.text_blob=self.text_blob+i+"\n"
-            print(self.text_blob)
 
     def print_cache(self):
         self.cache_out()
@@ -62,6 +62,7 @@ layout["margin"].update(" ")
 layout["room_name"].update(" ")
 layout["score_box"].update(" ")
 layout["char_window"].update(" ")
+layout["main_window"].update(" ")
 
 main_win = Windowpane("main_window", layout_height-5)
 
@@ -97,6 +98,7 @@ def update_char_window(player:Hero, mob:Monster=None) -> None:
             f"    Health: {mob.hp}/{mob.max_hp}\n"+
             f"    Weapon: {mob.weapon}")
     layout["char_window"].update(c_win_blob)
+    console.print(layout, height=layout_height)
     
 
 def test_string(string) -> bool:
@@ -104,7 +106,6 @@ def test_string(string) -> bool:
         if not char.isalpha():
             return False
     return True
-
 
 
 def get_name() -> str:
@@ -155,7 +156,7 @@ def make_hero() -> Hero:
 
 
 def welcome():
-    main_win.add =('[gold3]Welcome to the[/gold3] [red1]dungeon[/red1]!\n'+
+    main_win.add('[gold3]Welcome to the[/gold3] [red1]dungeon[/red1]!\n'+
     '[gold3]How many rooms can you survive?[/gold3]\n'+
     'Before you go further you must make your hero.\n')
     main_win.print_cache()
@@ -179,6 +180,7 @@ def help() -> None:
     print('object is a weapon it will automatically replace any current')
     print('weapon you are weilding.')
 
+
 def parser(current_room:Room, player:Hero, user_action:str) -> tuple:
     if user_action[0:2].lower() == 'go':
         current_room = go(current_room, user_action[3:].strip(), player.level)
@@ -193,14 +195,15 @@ def parser(current_room:Room, player:Hero, user_action:str) -> tuple:
 
 def game_loop(current_room:Room, player:Hero) -> object:
     while player.alive == True:
+        layout["room_name"].update(current_room.name)
         if  current_room.name[0:1].lower() in ['a', 'e', 'i', 'o', 'u']:
-            main_blob=(f'\nYou are in an {current_room.name}.')
+            main_win.add(f'\nYou are in an {current_room.name}.')
         else:
-            main_blob=(f'\nYou are in a {current_room.name}.')
+            main_win.add(f'\nYou are in a {current_room.name}.')
         if current_room.monster:
-            main_blob=main_blob+(f"You see a {current_room.monster.name},"+
+            main_win.add(f"You see a {current_room.monster.name},"+
                                  " moving to attack you")
-            player, current_room.monster = fight(player, current_room.monster)
+            fight(player, current_room.monster)
             if current_room.monster.alive == False:
                 print(f'The {current_room.monster.name} falls dead.')
                 player.collect_xp(current_room.monster.xp_val)
@@ -214,7 +217,10 @@ def main():
     welcome()
     player = make_hero()
     update_char_window(player=player)
+    main_win.clear_cache()
+    main_win.print_cache()
     main_win.add(f'[gold3]Good luck, [/gold3][green1]{player.name}')
+    main_win.print_cache()
     time.sleep(4)
     current_room = start_room()
     game_loop(current_room, player)
