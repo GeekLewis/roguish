@@ -23,9 +23,11 @@ class Windowpane:
             del self.cache [0]
 
     def cache_out(self):
+        print(self.text_blob)
         self.text_blob=""
         for i in self.cache:
             self.text_blob=self.text_blob+i+"\n"
+            print(self.text_blob)
 
     def print_cache(self):
         self.cache_out()
@@ -76,9 +78,9 @@ def update_status_bar(room_name:str, player_score:int) -> None:
                 "[bright green]{player_score: >5}[/bright green] ")
 
 
-def update_main_window(text_block) -> None:
-    layout["main_window"].update(text_block)
-    console.print(layout, height=layout_height)
+# def update_main_window(text_block) -> None:
+#     layout["main_window"].update(text_block)
+#     console.print(layout, height=layout_height)
 
 
 def update_char_window(player:Hero, mob:Monster=None) -> None:
@@ -112,23 +114,27 @@ def get_name() -> str:
     while name_valid == False:
         h_name: str = input('Name your hero: ')
         if len(h_name) > 16:
-            update_main_window("\nLet's keep it under 16 letters, shall we?\n")
+            main_win.add("\nLet's keep it under 16 letters, shall we?\n")
+            main_win.print_cache()
         else:
             name_valid = test_string(h_name)
             if name_valid == False:
-                update_main_window("\nPlease, use letters only.\n\n")
+                main_win.add("\nPlease, use letters only.\n\n")
+                main_win.print_cache()
     return h_name
 
 
 def get_build(h_name:str) -> tuple:
     '''Retuns tuple with int values for hp, aim, defense, dmg_bonus'''
     while True:
-        update_main_window(f"[gold3]Very well, [green1]{h_name}[/green1]. \n"+
+        t_string=(f"[gold3]Very well, [green1]{h_name}[/green1]. \n"+
                            "Do you want to...\n\n ([bright_cyan]F[/bright_cyan])"+
                            "loat like a butterfly [bright_magenta](High defense)"+
                            "[/bright_magenta]\n ([bright_cyan]S[/bright_cyan])"+
                            "ting like a bee [bright_magenta](High Damage)"+
                            "[/bright_magenta]")
+        main_win.add(t_string)
+        main_win.print_cache()
         build_choice = input("> ")
         if build_choice.lower() == "f":
             return 8, 6, 12, 0
@@ -149,10 +155,10 @@ def make_hero() -> Hero:
 
 
 def welcome():
-    welcome_text =('[gold3]Welcome to the[/gold3] [red1]dungeon[/red1]!\n'+
+    main_win.add =('[gold3]Welcome to the[/gold3] [red1]dungeon[/red1]!\n'+
     '[gold3]How many rooms can you survive?[/gold3]\n'+
     'Before you go further you must make your hero.\n')
-    update_main_window(welcome_text)
+    main_win.print_cache()
 
 
 def show_hero(player):
@@ -192,8 +198,8 @@ def game_loop(current_room:Room, player:Hero) -> object:
         else:
             main_blob=(f'\nYou are in a {current_room.name}.')
         if current_room.monster:
-            main_blob=main_blob+(f'You see a {current_room.monster.name},"+
-                                 " moving to attack you')
+            main_blob=main_blob+(f"You see a {current_room.monster.name},"+
+                                 " moving to attack you")
             player, current_room.monster = fight(player, current_room.monster)
             if current_room.monster.alive == False:
                 print(f'The {current_room.monster.name} falls dead.')
@@ -208,7 +214,7 @@ def main():
     welcome()
     player = make_hero()
     update_char_window(player=player)
-    update_main_window(f'[gold3]Good luck, [/gold3][green1]{player.name}')
+    main_win.add(f'[gold3]Good luck, [/gold3][green1]{player.name}')
     time.sleep(4)
     current_room = start_room()
     game_loop(current_room, player)
