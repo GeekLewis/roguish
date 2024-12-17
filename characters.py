@@ -102,6 +102,7 @@ class Hero(Character):
         self.level:int = 1
         self.potion = False
         self.potion_count = 0
+        self.score = 0
         self.xp_level:dict = {
             1:49,
             2:99,
