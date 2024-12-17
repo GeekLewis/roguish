@@ -74,9 +74,9 @@ def update_status_bar(room_name:str, player_score:int) -> None:
         room_name (str): Name of current room.
         player_score (int): Score from player
     """
-    layout["room_name"].update(f"[blue]{room_name}[/bold]")
-    layout["player_score"].update(f"[green]Score:[/green] ", 
-                "[bright green]{player_score: >5}[/bright green] ")
+    layout["room_name"].update(f"[blue]{room_name}[/blue]")
+    layout["score_box"].update("[green]Score:[/green] "+ 
+                f"[bright green]{player_score: >5}[/bright green] ")
     console.print(layout, height=layout_height)
 
 
@@ -199,6 +199,7 @@ def go(current_room:Room, direction:str, player_level:int) -> Room:
         main_win.add(f"{direction} is not a valid direction.")
         return current_room
     elif getattr(current_room, 'index') == 0 and direction == 'west':
+        main_win.add("\n")
         main_win.add("That's the way out, and I'm afraid you can't leave.")
         return current_room
     elif getattr(current_room, direction.lower()) == False:
@@ -215,7 +216,7 @@ def go(current_room:Room, direction:str, player_level:int) -> Room:
 def game_loop(current_room:Room, player:Hero) -> object:
     while player.alive == True:
         layout["room_name"].update(current_room.name)
-        update_status_bar(current_room, player.)
+        update_status_bar(current_room.name, player.score)
         if  current_room.name[0:1].lower() in ['a', 'e', 'i', 'o', 'u']:
             main_win.add(f'\nYou are in an {current_room.name}.')
         else:
