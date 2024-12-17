@@ -189,8 +189,26 @@ def parser(current_room:Room, player:Hero, user_action:str) -> tuple:
         current_room = go(current_room, user_action.strip(), player.level)
         return current_room, player
     else:
-        print("I don't know what you mean.")
+        main_win.add("I don't know what you mean.")
         return current_room, player
+
+
+def go(current_room:Room, direction:str, player_level:int) -> Room:
+    if not direction.lower() in directions:
+        main_win.add(f"{direction} is not a valid direction.")
+        return current_room
+    elif getattr(current_room, 'index') == 0 and direction == 'west':
+        main_win.add("That's the way out, and I'm afraid you can't leave.")
+        return current_room
+    elif getattr(current_room, direction.lower()) == False:
+        main_win.add(f"You can't go {direction.lower()}")
+        return current_room
+    else:
+        if getattr(current_room, direction+'_closed') == True:
+            setattr(current_room, direction+'_target', len(map))
+            create_room(current_room.index, direction, player_level)
+            setattr(current_room, direction+'_closed', False)
+    return map[getattr(current_room, direction+'_target')]
 
 
 def game_loop(current_room:Room, player:Hero) -> object:
@@ -208,7 +226,7 @@ def game_loop(current_room:Room, player:Hero) -> object:
                 print(f'The {current_room.monster.name} falls dead.')
                 player.collect_xp(current_room.monster.xp_val)
                          
-        print(current_room.get_exits())
+        main_win.add(current_room.get_exits())
         user_action:str = input('> ')
         current_room, player = parser(current_room, player, user_action)
     return player

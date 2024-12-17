@@ -105,21 +105,3 @@ def create_room(entry_index:int, entry_direction:str, player_level:int) -> None:
 def name_room() -> str:
     room_name = (choice(room_adj))+' '+choice(room_sub)
     return room_name
-
-
-def go(current_room:Room, direction:str, player_level:int) -> Room:
-    if not direction.lower() in directions:
-        print(f"{direction} is not a valid direction.")
-        return current_room
-    elif getattr(current_room, 'index') == 0 and direction == 'west':
-        print("That's the way out, and I'm afraid you can't leave.")
-        return current_room
-    elif getattr(current_room, direction.lower()) == False:
-        print(f"You can't go {direction.lower()}")
-        return current_room
-    else:
-        if getattr(current_room, direction+'_closed') == True:
-            setattr(current_room, direction+'_target', len(map))
-            create_room(current_room.index, direction, player_level)
-            setattr(current_room, direction+'_closed', False)
-    return map[getattr(current_room, direction+'_target')]
