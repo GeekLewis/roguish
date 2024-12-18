@@ -182,6 +182,20 @@ def help() -> None:
     print('weapon you are weilding.')
 
 
+def fight(player:Hero, mob:Monster) -> tuple:
+    while player.alive == True and mob.alive ==True:
+        print(f'\nThe {mob.name} is attacking you!')
+        action = input('Will you FIGHT or RUN?\n> ')
+        if action.strip().lower() == 'run':
+            pass
+        elif action.strip().lower() == 'fight':
+            player.attack(mob)
+            mob.attack(player)
+        else:
+            print("I'm sorry you can't do that.")
+    return player, mob
+        
+
 def parser(current_room:Room, player:Hero, user_action:str) -> tuple:
     if user_action[0:2].lower() == 'go':
         current_room = go(current_room, user_action[3:].strip(), player.level)
