@@ -125,9 +125,15 @@ class Hero(Character):
 
     def collect_xp(self, xp_val:int):
         self.xp += xp_val
-        self.score += xp_val
+        self.add_score(xp_val)
         print(f'You gain {xp_val} experience. ({self.xp} Total.)')
         if self.xp > self.xp_level[self.level]: self._level_up()
+
+    def add_score(self, points:int):
+        """
+        method takes an integer value and adds it to the player's score
+        """
+        self.score += points
 
 
 enemy_data = {
