@@ -39,7 +39,7 @@ class Character:
         self.alive:bool = True
 
     def attack(self, target):
-        print(f"\n{self.name} attacks {target.name} with {self.weapon.name}")
+        main_win.add(f"\n{self.name} attacks {target.name} with {self.weapon.name}")
         hit = rand(1, 21)+self.aim
         damage = (rand(1, self.weapon.dmg))+self.dmg_bonus
         target.hit(self.name, hit, damage) 
@@ -47,12 +47,13 @@ class Character:
     def hit(self, attacker, hit, damage):
         if hit > self.defence:
             self.hp = max(self.hp - damage, 0)
-            print(f'{attacker} hits {self.name} for {damage} damage',
+            main_win.add(f'{attacker} hits {self.name} for {damage} damage',
                   f' ({self.hp}/{self.max_hp})')
             if self.hp == 0:
                 self.alive = False
+            
         else:
-            print(f"{attacker} misses\n")
+            main_win.add(f"{attacker} misses\n")
 
     def check_health(self):
         print (f"{self.name} has {self.hp}/{self.max_hp} health")
@@ -116,20 +117,20 @@ class Hero(Character):
 
     def _level_up(self):
         while self.xp > self.xp_level[self.level]:
-            print('\nYou gained a level!')
+            main_win.add('\nYou gained a level!')
             self.level += 1
             # rewards for new level here
             self.hp += 8
-            print(f'You gain 8 HP! ({self.hp} HP Total)')
+            main_win.add(f'You gain 8 HP! ({self.hp} HP Total)')
             self.aim += 4
-            print('Your accuracy increased!')
+            main_win.add('Your accuracy increased!')
             self.defence += 4
-            print('Your defense increased!')
+            main_win.add('Your defense increased!')
 
     def collect_xp(self, xp_val:int):
         self.xp += xp_val
         self.add_score(xp_val)
-        print(f'You gain {xp_val} experience. ({self.xp} Total.)')
+        main_win.add(f'You gain {xp_val} experience.')
         if self.xp > self.xp_level[self.level]: self._level_up()
 
     def add_score(self, points:int):
