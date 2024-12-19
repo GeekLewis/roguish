@@ -223,7 +223,7 @@ def update_char_window(player:Hero, mob:Monster=None) -> None:
     c_win_blob:str=(f"[magenta]Name:[/magenta] "+
         f"[bright magenta]{player.name}[/bright magenta]\n"+
         f"     Level: {player.level}\n"+
-        f"Experiance: {player.xp}\n"+
+        f"Experience: {player.xp}\n"+
         f"    Health: {player.hp}/{player.max_hp}\n"+
         f"    Weapon: {player.weapon.name}\n"+
         f"   Potions: {player.potion_count}\n")
