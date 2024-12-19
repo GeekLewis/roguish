@@ -47,7 +47,7 @@ class Character:
     def hit(self, attacker, hit, damage):
         if hit > self.defence:
             self.hp = max(self.hp - damage, 0)
-            main_win.add(f'{attacker} hits {self.name} for {damage} damage',
+            main_win.add(f'{attacker} hits {self.name} for {damage} damage'+
                   f' ({self.hp}/{self.max_hp})')
             if self.hp == 0:
                 self.alive = False
@@ -220,8 +220,7 @@ def update_status_bar(room_name:str, player_score:int) -> None:
 
 
 def update_char_window(player:Hero, mob:Monster=None) -> None:
-    c_win_blob:str=(f"[magenta]Name:[/magenta] "+
-        f"[bright magenta]{player.name}[/bright magenta]\n"+
+    c_win_blob:str=(f"[magenta]{player.name}[/magenta]\n"+
         f"     Level: {player.level}\n"+
         f"Experience: {player.xp}\n"+
         f"    Health: {player.hp}/{player.max_hp}\n"+
@@ -229,9 +228,9 @@ def update_char_window(player:Hero, mob:Monster=None) -> None:
         f"   Potions: {player.potion_count}\n")
     if mob:
         c_win_blob = c_win_blob +("\n\n"+
-            f"[orange]{mob.name}[/orange]\n"+
+            f"[red]{mob.name}[/red]\n"+
             f"    Health: {mob.hp}/{mob.max_hp}\n"+
-            f"    Weapon: {mob.weapon}")
+            f"    Weapon: {mob.weapon.name}")
     layout["char_window"].update(c_win_blob)
     console.print(layout, height=layout_height)
     
@@ -277,7 +276,7 @@ def get_build(h_name:str) -> tuple:
         elif build_choice.lower() == "s":
             return 14, 2, 8, 2
         else:
-            print("\nTry Again\n")
+            main_win.add("\nTry Again\n")
 
 
 def make_hero() -> Hero:
@@ -416,7 +415,7 @@ def game_loop(current_room:Room, player:Hero) -> object:
                                  " moving to attack you")
             fight(player, current_room.monster)
             if current_room.monster.alive == False:
-                print(f'The {current_room.monster.name} falls dead.')
+                main_win.add(f'The {current_room.monster.name} falls dead.')
                 player.collect_xp(current_room.monster.xp_val)
                          
         main_win.add(current_room.get_exits())
@@ -430,7 +429,7 @@ def main():
     update_char_window(player=player)
     main_win.clear_cache()
     main_win.print_cache()
-    main_win.add(f'[gold3]Good luck, [/gold3][green1]{player.name}')
+    main_win.add(f'[gold3]Good luck, [/gold3][green1]{player.name}[/green]')
     main_win.print_cache()
     time.sleep(2)
     current_room = start_room()
