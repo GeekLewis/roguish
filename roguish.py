@@ -318,6 +318,7 @@ def help() -> None:
 
 def fight(player:Hero, mob:Monster) -> tuple:
     time.sleep(2)
+    update_char_window(player=player, mob=mob)
     while player.alive == True and mob.alive ==True:
         main_win.add(f'\nThe {mob.name} is attacking you!')
         action = input('Will you FIGHT or RUN?\n> ')
@@ -328,6 +329,7 @@ def fight(player:Hero, mob:Monster) -> tuple:
             mob.attack(player)
         else:
             main_win.add("I'm sorry you can't do that.")
+        update_char_window(player=player, mob=mob)
     return player, mob
         
 
