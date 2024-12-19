@@ -68,18 +68,6 @@ mob_difficulty = {
 }
 
 
-def random_monster(player_level:int) -> object:
-    mob_list = mob_difficulty[player_level]
-    picked_mob = choice(mob_list)
-    mob = Monster(name=picked_mob, hp=enemy_data[picked_mob]['hp'],
-                  aim=enemy_data[picked_mob]['aim'],
-                  defence=enemy_data[picked_mob]['defence'],
-                  xp_val=enemy_data[picked_mob]['xp_val'],
-                  dmg_bonus=enemy_data[picked_mob]['dmg_bonus'],
-                  weapon=enemy_data[picked_mob]['weapon'])
-    return mob
-
-
 def main():
     pass
 

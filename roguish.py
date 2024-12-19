@@ -290,6 +290,18 @@ def make_hero() -> Hero:
     return player
 
 
+def random_monster(player_level:int) -> object:
+    mob_list = mob_difficulty[player_level]
+    picked_mob = choice(mob_list)
+    mob = Monster(name=picked_mob, hp=enemy_data[picked_mob]['hp'],
+                  aim=enemy_data[picked_mob]['aim'],
+                  defence=enemy_data[picked_mob]['defence'],
+                  xp_val=enemy_data[picked_mob]['xp_val'],
+                  dmg_bonus=enemy_data[picked_mob]['dmg_bonus'],
+                  weapon=enemy_data[picked_mob]['weapon'])
+    return mob
+
+
 def welcome():
     main_win.add('[gold3]Welcome to the[/gold3] [red1]dungeon[/red1]!\n'+
     '[gold3]How many rooms can you survive?[/gold3]\n'+
