@@ -417,6 +417,8 @@ def game_loop(current_room:Room, player:Hero) -> object:
             if current_room.monster.alive == False:
                 main_win.add(f'The {current_room.monster.name} falls dead.')
                 player.collect_xp(current_room.monster.xp_val)
+            elif player.alive == False:
+                break
                          
         main_win.add(current_room.get_exits())
         user_action:str = input('> ')
