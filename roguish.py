@@ -188,7 +188,7 @@ layout["status_bar"].split_row(
 layout["body"].split_row(
     Layout(name="main_window"),
     Layout(name="margin", size=2),
-    Layout(name="char_window", size=24)
+    Layout(name="char_window", size=32)
 )
 layout["title_bar"].update(Align("[green1]Roguish", align="center"))
 layout["header_buffer"].update(" ")
