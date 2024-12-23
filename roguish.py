@@ -80,7 +80,7 @@ class Monster(Character):
     def __init__(
             self, name: str, hp: int, aim: int, defence: int,
             xp_val: int, weapon:str = 'fists', dmg_bonus: int=0) -> None:
-        super().__init__(name, hp, aim, defence)
+        super().__init__(name, hp, aim, defence, weapon, dmg_bonus)
         self.xp_val = xp_val
 
 class Hero(Character):
@@ -289,7 +289,7 @@ def make_hero() -> Hero:
     return player
 
 
-def random_monster(player_level:int) -> object:
+def random_monster(player_level:int) -> Monster:
     mob_list = mob_difficulty[player_level]
     picked_mob = choice(mob_list)
     mob = Monster(name=picked_mob, hp=enemy_data[picked_mob]['hp'],
@@ -429,7 +429,7 @@ def main():
     update_char_window(player=player)
     main_win.clear_cache()
     main_win.print_cache()
-    main_win.add(f'[gold3]Good luck, [/gold3][green1]{player.name}[/green]')
+    main_win.add(f'[gold3]Good luck, [/gold3][green1]{player.name}[/green1]')
     main_win.print_cache()
     time.sleep(2)
     current_room = start_room()
