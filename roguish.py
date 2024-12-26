@@ -395,6 +395,7 @@ def go(current_room:Room, direction:str, player_level:int) -> Room:
         return current_room
     else:
         if getattr(current_room, direction+'_closed') == True:
+            main_win.add(f'[green]You go {direction}[/green]')
             setattr(current_room, direction+'_target', len(map))
             create_room(current_room.index, direction, player_level)
             setattr(current_room, direction+'_closed', False)
