@@ -302,9 +302,9 @@ def random_monster(player_level:int) -> Monster:
 
 
 def welcome():
-    main_win.add('[gold3]Welcome to the[/gold3] [red1]dungeon[/red1]!\n'+
-    '[gold3]How many rooms can you survive?[/gold3]\n'+
-    'Before you go further you must make your hero.\n')
+    main_win.add('[gold3]Welcome to the[/gold3] [red1]dungeon![/red1]')
+    main_win.add('[gold3]How many rooms can you survive?[/gold3]')
+    main_win.add('Before you go further you must make your hero.')
     main_win.print_cache()
 
 
