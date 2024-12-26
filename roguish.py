@@ -154,7 +154,7 @@ class Windowpane:
         
     def add(self, new_text:str):
         self.cache.append(new_text)
-        if len(self.cache) == self.pane_height:
+        if len(self.cache) >= self.pane_height-1:
             del self.cache [0]
         self.print_cache()
 
