@@ -319,12 +319,12 @@ def start_room() -> Room:
 
 
 def help() -> None:
-    print('This game is played with text commands typed into the command')
-    print('prompt. To move you type the keyword GO followed by a direction')
-    print('NORTH, SOUTH,EAST, WEST). Some objects in a room can be picked up')
-    print('with the keyword TAKE, followed by the name of the object. If the')
-    print('object is a weapon it will automatically replace any current')
-    print('weapon you are weilding.')
+    main_win.add('This game is played with text commands typed into the')
+    main_win.add('command prompt. To move you type the keyword GO followed by')
+    main_win.add('a direction (NORTH, SOUTH,EAST, WEST). Some objects in a')
+    main_win.add('room can be picked up with the keyword TAKE, followed by')
+    main_win.add('the name of the object. If the object is a weapon it will')
+    main_win.add(' automatically replace any current weapon you are weilding.')
 
 
 def fight(player:Hero, mob:Monster) -> tuple:
