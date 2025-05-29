@@ -2,6 +2,7 @@ from rooms import *
 from rich.console import Console
 from rich.layout import Layout
 from rich.align import Align
+from typing import Optional
 import os
 import time
 
@@ -219,7 +220,7 @@ def update_status_bar(room_name:str, player_score:int) -> None:
 #     console.print(layout, height=layout_height)
 
 
-def update_char_window(player:Hero, mob:Monster=None) -> None:
+def update_char_window(player:Hero, mob:Optional[Monster]=None) -> None:
     c_win_blob:str=(f"[magenta]{player.name}[/magenta]\n"+
         f"     Level: {player.level}\n"+
         f"Experience: {player.xp}\n"+
@@ -246,6 +247,7 @@ def get_name() -> str:
     '''Gets name from user and validates that it is a valid string,
     which is less than 16 characters'''
     name_valid = False
+    h_name: str = ''
     while name_valid == False:
         h_name: str = input('Name your hero: ')
         if len(h_name) > 16:

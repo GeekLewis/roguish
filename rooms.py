@@ -1,9 +1,11 @@
 from random import choice
-
+from typing import Optional, TYPE_CHECKING
 from roomlib import adj as room_adj
 from roomlib import sub as room_sub
 from characters import *
 
+if TYPE_CHECKING:
+    from roguish import Monster
 
 class Room:
     """
@@ -45,7 +47,7 @@ class Room:
         self.south_target = -1
         self.east_target = -1
         self.west_target = -1
-        self.monster = None
+        self.monster:Optional[Monster] = None
         self.loot = None
         self.item = None
 
