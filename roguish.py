@@ -274,9 +274,9 @@ def get_build(h_name:str) -> tuple:
         main_win.print_cache()
         build_choice = input("> ")
         if build_choice.lower() == "f":
-            return 8, 6, 12, 0
+            return 10, 8, 14, 0
         elif build_choice.lower() == "s":
-            return 14, 2, 8, 2
+            return 18, 4, 8, 4
         else:
             main_win.add("\nTry Again\n")
 
