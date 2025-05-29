@@ -40,7 +40,8 @@ class Character:
         self.alive:bool = True
 
     def attack(self, target):
-        main_win.add(f"\n{self.name} attacks {target.name} with {self.weapon.name}")
+        main_win.add(" ")
+        main_win.add(f"{self.name} attacks {target.name} with {self.weapon.name}")
         hit = rand(1, 21)+self.aim
         damage = (rand(1, self.weapon.dmg))+self.dmg_bonus
         target.hit(self.name, hit, damage) 
@@ -54,7 +55,8 @@ class Character:
                 self.alive = False
             
         else:
-            main_win.add(f"{attacker} misses\n")
+            main_win.add(f"{attacker} misses")
+            main_win.add(" ")
 
     def check_health(self):
         print (f"{self.name} has {self.hp}/{self.max_hp} health")
@@ -118,7 +120,8 @@ class Hero(Character):
 
     def _level_up(self):
         while self.xp > self.xp_level[self.level]:
-            main_win.add('\nYou gained a level!')
+            main_win.add(" ")
+            main_win.add('You gained a level!')
             self.level += 1
             # rewards for new level here
             self.hp += 8
@@ -155,7 +158,7 @@ class Windowpane:
         
     def add(self, new_text:str):
         self.cache.append(new_text)
-        if len(self.cache) >= self.pane_height-1:
+        if len(self.cache) >= self.pane_height-2:
             del self.cache [0]
         self.print_cache()
 
@@ -199,7 +202,7 @@ layout["score_box"].update(" ")
 layout["char_window"].update(" ")
 layout["main_window"].update(" ")
 
-main_win = Windowpane("main_window", layout_height-5)
+main_win = Windowpane("main_window", layout_height-4)
 
 console.print(layout, height=layout_height)
 
@@ -251,12 +254,17 @@ def get_name() -> str:
     while name_valid == False:
         h_name: str = input('Name your hero: ')
         if len(h_name) > 16:
-            main_win.add("\nLet's keep it under 16 letters, shall we?\n")
+            main_win.add(" ")
+            main_win.add("Let's keep it under 16 letters, shall we?")
+            main_win.add(" ")
             main_win.print_cache()
         else:
             name_valid = test_string(h_name)
             if name_valid == False:
-                main_win.add("\nPlease, use letters only.\n\n")
+                main_win.add(" ")
+                main_win.add("Please, use letters only.")
+                main_win.add(" ")
+                main_win.add(" ")
                 main_win.print_cache()
     return h_name
 
@@ -333,11 +341,13 @@ def fight(player:Hero, mob:Monster) -> tuple:
     time.sleep(2)
     update_char_window(player=player, mob=mob)
     while player.alive == True and mob.alive ==True:
-        main_win.add(f'\nThe {mob.name} is attacking you!')
+        main_win.add(" ")
+        main_win.add(f'The {mob.name} is attacking you!')
         action = input('Will you FIGHT or RUN?\n> ')
         if action.strip().lower() == 'run':
             pass
         elif action.strip().lower() == 'fight':
+            main_win.add("[green]You fight![/green]")
             player.attack(mob)
             mob.attack(player)
         else:
@@ -389,7 +399,7 @@ def go(current_room:Room, direction:str, player_level:int) -> Room:
         main_win.add(f"{direction} is not a valid direction.")
         return current_room
     elif getattr(current_room, 'index') == 0 and direction == 'west':
-        main_win.add("\n")
+        main_win.add(" ")
         main_win.add("That's the way out, and I'm afraid you can't leave.")
         return current_room
     elif getattr(current_room, direction.lower()) == False:
@@ -410,19 +420,26 @@ def game_loop(current_room:Room, player:Hero) -> object:
         layout["room_name"].update(current_room.name)
         update_status_bar(current_room.name, player.score)
         if  current_room.name[0:1].lower() in ['a', 'e', 'i', 'o', 'u']:
-            main_win.add(f'\nYou are in an {current_room.name}.')
+            main_win.add(" ")
+            main_win.add(f'You are in an {current_room.name}.')
         else:
-            main_win.add(f'\nYou are in a {current_room.name}.')
-        if current_room.monster:
+            main_win.add(" ")
+            main_win.add(f'You are in a {current_room.name}.')
+        if current_room.monster and current_room.monster.alive == True:
             main_win.add(f"You see a {current_room.monster.name},"+
                                  " moving to attack you")
             fight(player, current_room.monster)
             if current_room.monster.alive == False:
                 main_win.add(f'The {current_room.monster.name} falls dead.')
                 player.collect_xp(current_room.monster.xp_val)
+                update_char_window(player=player)
+                if current_room.monster.weapon.drop == True:
+                    #put the weapon in the room
             elif player.alive == False:
                 break
-                         
+        if current_room.monster and current_room.monster.alive == False:
+            main_win.add(f'You see a dead {current_room.monster.name} laying here.')
+
         main_win.add(current_room.get_exits())
         user_action:str = input('> ')
         current_room, player = parser(current_room, player, user_action)
