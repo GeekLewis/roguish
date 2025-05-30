@@ -48,8 +48,8 @@ class Room:
         self.east_target = -1
         self.west_target = -1
         self.monster:Optional[Monster] = None
-        self.loot = None
-        self.item = None
+        self.loot:Optional[Weapon] = None
+        self.item:Optional[Weapon] = None
 
     def get_exits(self) -> str:
         """

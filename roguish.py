@@ -434,6 +434,7 @@ def game_loop(current_room:Room, player:Hero) -> object:
                 player.collect_xp(current_room.monster.xp_val)
                 update_char_window(player=player)
                 if current_room.monster.weapon.drop == True:
+                    current_room.item=current_room.monster.weapon
                     #put the weapon in the room
             elif player.alive == False:
                 break
