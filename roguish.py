@@ -282,9 +282,9 @@ def get_build(h_name:str) -> tuple:
         main_win.print_cache()
         build_choice = input("> ")
         if build_choice.lower() == "f":
-            return 10, 8, 14, 0
+            return 10, 9, 16, 1
         elif build_choice.lower() == "s":
-            return 18, 4, 8, 4
+            return 30, 5, 8, 5
         else:
             main_win.add("\nTry Again\n")
 
@@ -383,12 +383,26 @@ def name_room() -> str:
 
 
 def parser(current_room:Room, player:Hero, user_action:str) -> tuple:
-    if user_action[0:2].lower() == 'go':
+    if user_action[0:2] == 'go':
         current_room = go(current_room, user_action[3:].strip(), player.level)
         return current_room, player
-    elif user_action.strip().lower() in directions:
+    elif user_action.strip() in directions:
         current_room = go(current_room, user_action.strip(), player.level)
         return current_room, player
+    elif user_action[0:3] == 'take':
+        if current_room.item:
+            if user_action[5:] == current_room.item.name:
+                if player.weapon == 'fist':
+                    player.weapon = current_room.item
+                    main_win.add(f"You arm yourself with the {player.weapon.name}")
+                    update_char_window(player=player)
+                else:
+                    main_win.add(f"You drop your {player.weapon.name}")
+                    player.weapon, current_room.item = current_room.item, player.weapon
+                    main_win.add(f"You arm yourself with the {player.weapon.name}")
+                    update_char_window(player=player)
+        else:
+            main_win.add(f"You can't see any {user_action[5:]} here.")
     else:
         main_win.add("I don't know what you mean.")
         return current_room, player
@@ -407,11 +421,11 @@ def go(current_room:Room, direction:str, player_level:int) -> Room:
         return current_room
     else:
         if getattr(current_room, direction+'_closed') == True:
-            main_win.add(f'[green]You go {direction}[/green]')
             setattr(current_room, direction+'_target', len(map))
             create_room(current_room.index, direction, player_level)
             setattr(current_room, direction+'_closed', False)
             #add 1 to player score here
+    main_win.add(f'[green]You go {direction}[/green]')
     return map[getattr(current_room, direction+'_target')]
 
 
@@ -436,13 +450,16 @@ def game_loop(current_room:Room, player:Hero) -> object:
                 if current_room.monster.weapon.drop == True:
                     current_room.item=current_room.monster.weapon
                     #put the weapon in the room
+                    main_win.add(f"{current_room.monster.name} drops it's {current_room.item.name}")
             elif player.alive == False:
                 break
         if current_room.monster and current_room.monster.alive == False:
             main_win.add(f'You see a dead {current_room.monster.name} laying here.')
+        if current_room.item:
+            main_win.add(f'There is a {current_room.item.name} on the ground')
 
         main_win.add(current_room.get_exits())
-        user_action:str = input('> ')
+        user_action:str = input('> ').lower()
         current_room, player = parser(current_room, player, user_action)
     return player
 
