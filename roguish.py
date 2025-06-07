@@ -284,7 +284,7 @@ def get_build(h_name:str) -> tuple:
         if build_choice.lower() == "f":
             return 10, 9, 16, 1
         elif build_choice.lower() == "s":
-            return 30, 5, 8, 5
+            return 40, 5, 8, 5
         else:
             main_win.add("\nTry Again\n")
 
@@ -383,24 +383,25 @@ def name_room() -> str:
 
 
 def parser(current_room:Room, player:Hero, user_action:str) -> tuple:
-    if user_action[0:2] == 'go':
+    if user_action.startswith('go'):
         current_room = go(current_room, user_action[3:].strip(), player.level)
         return current_room, player
     elif user_action.strip() in directions:
         current_room = go(current_room, user_action.strip(), player.level)
         return current_room, player
-    elif user_action[0:3] == 'take':
-        if current_room.item:
-            if user_action[5:] == current_room.item.name:
-                if player.weapon == 'fist':
-                    player.weapon = current_room.item
-                    main_win.add(f"You arm yourself with the {player.weapon.name}")
-                    update_char_window(player=player)
-                else:
-                    main_win.add(f"You drop your {player.weapon.name}")
-                    player.weapon, current_room.item = current_room.item, player.weapon
-                    main_win.add(f"You arm yourself with the {player.weapon.name}")
-                    update_char_window(player=player)
+    elif user_action.startswith('take'):
+        if current_room.item and user_action[5:].strip() == current_room.item.name:
+            if player.weapon.name == 'fists':
+                player.weapon = current_room.item
+                main_win.add(f"You arm yourself with the {player.weapon.name}")
+                update_char_window(player=player)
+                return current_room, player
+            else:
+                main_win.add(f"You drop your {player.weapon.name}")
+                player.weapon, current_room.item = current_room.item, player.weapon
+                main_win.add(f"You arm yourself with the {player.weapon.name}")
+                update_char_window(player=player)
+                return current_room, player
         else:
             main_win.add(f"You can't see any {user_action[5:]} here.")
     else:
@@ -459,7 +460,7 @@ def game_loop(current_room:Room, player:Hero) -> object:
             main_win.add(f'There is a {current_room.item.name} on the ground')
 
         main_win.add(current_room.get_exits())
-        user_action:str = input('> ').lower()
+        user_action:str = input('> ').strip().lower()
         current_room, player = parser(current_room, player, user_action)
     return player
 
