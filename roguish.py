@@ -382,7 +382,7 @@ def name_room() -> str:
     return room_name
 
 
-def parser(current_room:Room, player:Hero, user_action:str) -> tuple:
+def parser(current_room:Room, player:Hero, user_action:str) -> tuple[Room, Hero]:
     if user_action.startswith('go'):
         current_room = go(current_room, user_action[3:].strip(), player.level)
         return current_room, player
@@ -404,6 +404,7 @@ def parser(current_room:Room, player:Hero, user_action:str) -> tuple:
                 return current_room, player
         else:
             main_win.add(f"You can't see any {user_action[5:]} here.")
+            return current_room,player
     else:
         main_win.add("I don't know what you mean.")
         return current_room, player
